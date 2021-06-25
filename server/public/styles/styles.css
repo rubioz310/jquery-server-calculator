@@ -1,3 +1,11 @@
 body{
     background-color: rgb(168, 212, 209);
 }
+
+#resultsSection{
+    background-color: aqua;
+}
+
+#operationsHistorySection{
+    background-color: aquamarine;
+}
