@@ -20,3 +20,26 @@ app.listen(port, () => {
 // ^^^^^^^^^ Server setup ^^^^^^^^^^^^^^^^^^^^^^
 
 // ********* Server requests **************
+
+app.post('/calculate', (req, res) => {
+    let operation = req.body;
+    console.log(operation);
+    let results = 0;
+    switch (operation.operator) {
+        case "+":
+            results = parseInt(operation.firstNum) + parseInt(operation.secondNum);
+            break;
+        case "-":
+            results = operation.firstNum - operation.secondNum;
+            break;
+        case "*":
+            results = operation.firstNum * operation.secondNum;
+            break;
+        case "/":
+            results = operation.firstNum / operation.secondNum;
+            break;
+    }
+    operation.results = results;
+    results+="";
+    res.send(results);
+})

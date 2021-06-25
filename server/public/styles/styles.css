@@ -9,3 +9,7 @@ body{
 #operationsHistorySection{
     background-color: aquamarine;
 }
+
+.selected{
+    background-color: rgb(241, 199, 135);
+}

@@ -15,15 +15,16 @@
     <main>
         <section id="calculatorForm">
             <input id="firstNum"/>
-            <button id="addBtn">+</button>
-            <button id="substractBtn">-</button>
-            <button id="multiplyBtn">*</button>
-            <button id="divideBtn">/</button>
+            <button id="addBtn" class="operator selected" data-operator="+">+</button>
+            <button id="subtractBtn" class="operator" data-operator="-">-</button>
+            <button id="multiplyBtn" class="operator" data-operator="*">*</button>
+            <button id="divideBtn" class="operator" data-operator="/">/</button>
             <input id="secondNum"/>
             <button id="equalBtn">=</button>
             <button id="clearBtn">C</button>
         </section>
-        <section id="resultsSection">
+        <section>
+            <h2 id="resultsSection">0</h2>
         </section>
         <section id="operationsHistorySection">
         </section>
