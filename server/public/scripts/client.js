@@ -7,16 +7,16 @@ function handleReady(){
     $('.calculatorBtn').on('click', addToInput)
     $('#clearBtn').on('click', clearFields);
     // getHistory();
-    //This prevents typing letters and other special characters beside + - * / .  on the main input
+
+    //This prevents typing letters and other special characters besides + - * / .  on the main input
     $('#operationInput').on('keypress', function (event) {
-        let regex = new RegExp("[0-9+.*/-]");
+        let regex = new RegExp("[0-9]|([.+*/-])");
         let key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
         if (!regex.test(key)) {
            event.preventDefault();
            return false;
         }
     });
-
 }
 
 // let operator = "+";
@@ -25,9 +25,26 @@ function addToInput(){
     $('#operationInput').val($('#operationInput').val() + $(this).text());
 }
 function operationData(){
+    let goodOperation = false;
     let operation = $('#operationInput').val();
-
-    postOperation(operation);
+    let numbers = operation.match(/\d+(\.\d+)?/g).map(v => parseFloat(v));
+    let operators = operation.match(/(\+|-|\*|\/)+/g);
+    if(numbers&&operators){
+        if(numbers.length>operators.length){
+            for (const op of operators) {
+                if(op.length<2){
+                    goodOperation = true;
+                }
+            }
+        }
+    }
+    if(goodOperation){
+        console.log('Sending calculation', operation, numbers, operators);
+        
+    }else{
+        console.log('Fix input please');
+    }
+    // postOperation(operation);
     // getResults();
     // getHistory();
 }
