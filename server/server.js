@@ -26,24 +26,27 @@ let allOperations = [];
 
 app.post('/calculate', (req, res) => {
     let operation = req.body;
+    // const numbers = operation.operation.match(/\d+(\.\d+)?/g).map(v => parseFloat(v));
+    // const op = operation.operation.split(/(\+|-|\*|\/)+/g);
+    console.log(numbers, op);
     let results = 0;
-    switch (operation.operator) {
-        case "+":
-            results = parseInt(operation.firstNum) + parseInt(operation.secondNum);
-            break;
-        case "-":
-            results = operation.firstNum - operation.secondNum;
-            break;
-        case "*":
-            results = operation.firstNum * operation.secondNum;
-            break;
-        case "/":
-            results = operation.firstNum / operation.secondNum;
-            break;
-    }
-    operation.results = results;
-    allOperations.push(operation);
-    lastResult = results + "";
+    // switch (operation.operator) {
+    //     case "+":
+    //         results = parseInt(operation.firstNum) + parseInt(operation.secondNum);
+    //         break;
+    //     case "-":
+    //         results = operation.firstNum - operation.secondNum;
+    //         break;
+    //     case "*":
+    //         results = operation.firstNum * operation.secondNum;
+    //         break;
+    //     case "/":
+    //         results = operation.firstNum / operation.secondNum;
+    //         break;
+    // }
+    // operation.results = results;
+    // allOperations.push(operation);
+    // lastResult = results + "";
     res.status(201);
 })
 

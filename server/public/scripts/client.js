@@ -6,7 +6,16 @@ function handleReady(){
     // $('.operator').on('click', saveOperator);
     $('.calculatorBtn').on('click', addToInput)
     $('#clearBtn').on('click', clearFields);
-    getHistory();
+    // getHistory();
+    //This prevents typing letters and other special characters beside + - * / .  on the main input
+    $('#operationInput').on('keypress', function (event) {
+        let regex = new RegExp("[0-9+.*/-]");
+        let key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+           event.preventDefault();
+           return false;
+        }
+    });
 
 }
 
@@ -16,25 +25,18 @@ function addToInput(){
     $('#operationInput').val($('#operationInput').val() + $(this).text());
 }
 function operationData(){
-    // let operation = {
-    //     firstNum: $('#firstNum').val(),
-    //     secondNum: $('#secondNum').val(),
-    //     operator: operator
-    // }
+    let operation = $('#operationInput').val();
+
     postOperation(operation);
-    getResults();
-    getHistory();
+    // getResults();
+    // getHistory();
 }
 function postOperation(operation){
     $.ajax({
         type: 'POST',
         url: '/calculate',
-        data: {
-            firstNum: operation.firstNum,
-            secondNum: operation.secondNum,
-            operator: operation.operator
-        },
-        dataType: 'json'
+        data: {operation: operation},
+        dataType: 'text'
     })
     .then(function (response) {
         
