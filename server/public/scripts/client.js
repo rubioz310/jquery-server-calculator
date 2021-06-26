@@ -3,19 +3,24 @@ $(handleReady)
 function handleReady(){
     console.log("Jquery Linked");
     $('#equalBtn').on('click', operationData);
-    $('.operator').on('click', saveOperator);
+    // $('.operator').on('click', saveOperator);
+    $('.calculatorBtn').on('click', addToInput)
     $('#clearBtn').on('click', clearFields);
     getHistory();
+
 }
 
-let operator = "+";
+// let operator = "+";
 
+function addToInput(){
+    $('#operationInput').val($('#operationInput').val() + $(this).text());
+}
 function operationData(){
-    let operation = {
-        firstNum: $('#firstNum').val(),
-        secondNum: $('#secondNum').val(),
-        operator: operator
-    }
+    // let operation = {
+    //     firstNum: $('#firstNum').val(),
+    //     secondNum: $('#secondNum').val(),
+    //     operator: operator
+    // }
     postOperation(operation);
     getResults();
     getHistory();
@@ -39,14 +44,14 @@ function postOperation(operation){
     });
 }
 
-function saveOperator(){
-    operator = $(this).data('operator');
-    $('#addBtn').removeClass('selected');
-    $('#subtractBtn').removeClass('selected');
-    $('#multiplyBtn').removeClass('selected');
-    $('#divideBtn').removeClass('selected');
-    $(this).addClass('selected')
-}
+// function saveOperator(){
+//     operator = $(this).data('operator');
+//     $('#addBtn').removeClass('selected');
+//     $('#subtractBtn').removeClass('selected');
+//     $('#multiplyBtn').removeClass('selected');
+//     $('#divideBtn').removeClass('selected');
+//     $(this).addClass('selected')
+// }
 
 function getResults(operation){
     $.ajax({
