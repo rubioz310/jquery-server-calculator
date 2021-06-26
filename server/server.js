@@ -50,3 +50,7 @@ app.post('/calculate', (req, res) => {
 app.get('/results', (req, res) =>{
     res.send(lastResult);
 })
+
+app.get('/history', (req, res) =>{
+    res.send(allOperations);
+})

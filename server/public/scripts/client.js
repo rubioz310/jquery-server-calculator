@@ -5,6 +5,7 @@ function handleReady(){
     $('#equalBtn').on('click', operationData);
     $('.operator').on('click', saveOperator);
     $('#clearBtn').on('click', clearFields);
+    getHistory();
 }
 
 let operator = "+";
@@ -17,6 +18,7 @@ function operationData(){
     }
     postOperation(operation);
     getResults();
+    getHistory();
 }
 function postOperation(operation){
     $.ajax({
@@ -65,4 +67,26 @@ function clearFields(){
     $('#firstNum').val('');
     $('#secondNum').val('');
     showResults(0);
+}
+
+function getHistory(){
+    $.ajax({
+        type: 'get',
+        url: '/history'
+    })
+    .then(function (response) {
+        showHistory(response)
+    })
+    .catch(function (response){
+        console.log('Sorry something went wrong.', response);
+    });
+}
+
+function showHistory(operationsHistory){
+    $('#operationsHistorySection').empty();
+    for (const operation of operationsHistory) {
+        $('#operationsHistorySection').append(`
+            <li>${operation.firstNum} ${operation.operator} ${operation.secondNum} = ${operation.results}</li>
+        `)
+    }
 }
