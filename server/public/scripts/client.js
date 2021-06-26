@@ -2,16 +2,38 @@ $(handleReady)
 
 function handleReady(){
     console.log("Jquery Linked");
-    $('#equalBtn').on('click', getOperation);
+    $('#equalBtn').on('click', operationData);
     $('.operator').on('click', saveOperator);
 }
 
 let operator = "+";
 
-function getOperation(){
-    let firstNum = $('#firstNum').val();
-    let secondNum = $('#secondNum').val();
-    sendOperation(firstNum, secondNum, operator)
+function operationData(){
+    let operation = {
+        firstNum: $('#firstNum').val(),
+        secondNum: $('#secondNum').val(),
+        operator: operator
+    }
+    postOperation(operation);
+    getResults();
+}
+function postOperation(operation){
+    $.ajax({
+        type: 'POST',
+        url: '/calculate',
+        data: {
+            firstNum: operation.firstNum,
+            secondNum: operation.secondNum,
+            operator: operation.operator
+        },
+        dataType: 'json'
+    })
+    .then(function (response) {
+        
+    })
+    .catch(function (response){
+        console.log('Sorry something went wrong.', response);
+    });
 }
 
 function saveOperator(){
@@ -23,20 +45,10 @@ function saveOperator(){
     $(this).addClass('selected')
 }
 
-function showResults(results){
-    $('#resultsSection').empty().append(results);
-}
-
-function sendOperation(firstNum, secondNum, operat){
+function getResults(operation){
     $.ajax({
-        type: 'POST',
-        url: '/calculate',
-        data: {
-            firstNum: firstNum,
-            secondNum: secondNum,
-            operator: operat
-        },
-        dataType: 'json'
+        type: 'get',
+        url: '/results'
     })
     .then(function (response) {
         showResults(response)
@@ -44,4 +56,7 @@ function sendOperation(firstNum, secondNum, operat){
     .catch(function (response){
         console.log('Sorry something went wrong.', response);
     });
+}
+function showResults(results){
+    $('#resultsSection').empty().append(results);
 }

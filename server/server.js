@@ -21,9 +21,11 @@ app.listen(port, () => {
 
 // ********* Server requests **************
 
+let lastResult = "";
+let allOperations = [];
+
 app.post('/calculate', (req, res) => {
     let operation = req.body;
-    console.log(operation);
     let results = 0;
     switch (operation.operator) {
         case "+":
@@ -40,6 +42,11 @@ app.post('/calculate', (req, res) => {
             break;
     }
     operation.results = results;
-    results+="";
-    res.send(results);
+    allOperations.push(operation);
+    lastResult = results + "";
+    res.status(201);
+})
+
+app.get('/results', (req, res) =>{
+    res.send(lastResult);
 })
