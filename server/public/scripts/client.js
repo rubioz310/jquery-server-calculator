@@ -4,6 +4,7 @@ function handleReady(){
     console.log("Jquery Linked");
     $('#equalBtn').on('click', operationData);
     $('.operator').on('click', saveOperator);
+    $('#clearBtn').on('click', clearFields);
 }
 
 let operator = "+";
@@ -59,4 +60,9 @@ function getResults(operation){
 }
 function showResults(results){
     $('#resultsSection').empty().append(results);
+}
+function clearFields(){
+    $('#firstNum').val('');
+    $('#secondNum').val('');
+    showResults(0);
 }
