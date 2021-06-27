@@ -19,11 +19,11 @@ function handleReady(){
     });
 }
 
-// let operator = "+";
-
+//When clicking on the calculator buttons it will show it's value on the input field
 function addToInput(){
     $('#operationInput').val($('#operationInput').val() + $(this).text());
 }
+
 function operationData(){
     let goodOperation = false;
     let operation = $('#operationInput').val();
@@ -45,8 +45,7 @@ function operationData(){
     }else{
         console.log('Fix input please');
     }
-    // 
-    // getResults();
+    getResults();
     // getHistory();
 }
 function postOperation(operation){
@@ -63,16 +62,7 @@ function postOperation(operation){
         console.log('Sorry something went wrong.', response);
     });
 }
-
-// function saveOperator(){
-//     operator = $(this).data('operator');
-//     $('#addBtn').removeClass('selected');
-//     $('#subtractBtn').removeClass('selected');
-//     $('#multiplyBtn').removeClass('selected');
-//     $('#divideBtn').removeClass('selected');
-//     $(this).addClass('selected')
-// }
-
+//Get results from last operation
 function getResults(operation){
     $.ajax({
         type: 'get',
@@ -85,15 +75,17 @@ function getResults(operation){
         console.log('Sorry something went wrong.', response);
     });
 }
+//Show results of last operation on DOM
 function showResults(results){
     $('#resultsSection').empty().append(results);
 }
+//Clears input fields
 function clearFields(){
     $('#firstNum').val('');
     $('#secondNum').val('');
     showResults(0);
 }
-
+//Gets a history of all previous operations
 function getHistory(){
     $.ajax({
         type: 'get',
@@ -106,7 +98,7 @@ function getHistory(){
         console.log('Sorry something went wrong.', response);
     });
 }
-
+//Shows all previous operation on DOM
 function showHistory(operationsHistory){
     $('#operationsHistorySection').empty();
     for (const operation of operationsHistory) {
