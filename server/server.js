@@ -53,6 +53,11 @@ app.get('/results', (req, res) =>{
 app.get('/history', (req, res) =>{
     res.send(allOperations);
 })
+app.delete('/history', (req, res) =>{
+    allOperations=[];
+    lastResult=0;
+    res.send(allOperations);
+})
 
 //Function that calculates results with order of precedence of operators
 function calculate(calc) {

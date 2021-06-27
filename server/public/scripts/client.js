@@ -3,8 +3,9 @@ $(handleReady)
 function handleReady(){
     console.log("Jquery Linked");
     $('#equalBtn').on('click', operationData);
-    $('.calculatorBtn').on('click', addToInput)
+    $('.calculatorBtn').on('click', addToInput);
     $('#clearBtn').on('click', clearFields);
+    $('#clearHistoryBtn').on('click', clearHistory);
     getResults();
     getHistory();
 
@@ -112,4 +113,18 @@ function showHistory(operationsHistory){
         appendStr+=`= ${operation.result}</li>`;
         $('#operationsHistorySection').append(appendStr);
     }
+}
+
+function clearHistory(){
+    $.ajax({
+        type: 'delete',
+        url: '/history'
+    })
+    .then(function (response) {
+        showHistory(response);
+        clearFields();
+    })
+    .catch(function (response){
+        console.log('Sorry something went wrong.', response);
+    });
 }
