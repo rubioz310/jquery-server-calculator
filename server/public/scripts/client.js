@@ -6,6 +6,7 @@ function handleReady(){
     $('.calculatorBtn').on('click', addToInput);
     $('#clearBtn').on('click', clearFields);
     $('#clearHistoryBtn').on('click', clearHistory);
+    $('#operationsHistorySection').on('click', 'li', rerunCalculation);
     getResults();
     getHistory();
 
@@ -64,7 +65,7 @@ function postOperation(operation){
     });
 }
 //Get results from last operation
-function getResults(operation){
+function getResults(){
     $.ajax({
         type: 'get',
         url: '/results'
@@ -102,7 +103,8 @@ function getHistory(){
 function showHistory(operationsHistory){
     $('#operationsHistorySection').empty();
     for (const operation of operationsHistory) {
-        let appendStr = "<li>";
+        let appendStr = `<li>`;
+        
         for (const key in operation) {
             if(key=="operation"){
                 for (const element of operation[key]) {
@@ -110,7 +112,7 @@ function showHistory(operationsHistory){
                 }
             }
         }
-        appendStr+=`= ${operation.result}</li>`;
+        appendStr+='</li>';
         $('#operationsHistorySection').append(appendStr);
     }
 }
@@ -127,4 +129,11 @@ function clearHistory(){
     .catch(function (response){
         console.log('Sorry something went wrong.', response);
     });
+}
+function rerunCalculation(){
+    let calculation = $(this).text();
+    $('#operationInput').val(calculation.replace(/\s/g,''));
+    postOperation(calculation);
+    getResults();
+    getHistory();
 }
