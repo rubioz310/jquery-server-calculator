@@ -42,7 +42,6 @@ app.post('/calculate', (req, res) => {
         operation: opArray,
         result: results
     });
-    console.log(allOperations);
     lastResult = results + "";
     res.status(201);
 })

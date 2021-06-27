@@ -13,15 +13,7 @@
 <body>
     <head>Jquery Calculator</head>
     <main>
-        <section id="calculatorForm">
-            <!-- <input id="firstNum"/>
-            <button id="addBtn" class="operator selected" data-operator="+">+</button>
-            <button id="subtractBtn" class="operator" data-operator="-">-</button>
-            <button id="multiplyBtn" class="operator" data-operator="*">*</button>
-            <button id="divideBtn" class="operator" data-operator="/">/</button>
-            <input id="secondNum"/>
-            <button id="equalBtn">=</button>
-            <button id="clearBtn">C</button> -->
+        <section id="calculator">
             <section>
                 <input id="operationInput" pattern="[0-9]|([+*/-])">
                 <button id="clearBtn">C</button>
@@ -30,25 +22,22 @@
                 <button id="numb7" class="calculatorBtn">7</button>
                 <button id="num8" class="calculatorBtn">8</button>
                 <button id="num9" class="calculatorBtn">9</button>
-                <button id="addBtn" class="calculatorBtn">+</button>
-            </section>
-            <section>
+                <button id="divideBtn" class="calculatorBtn operatorBtn">/</button>
+                <br>
                 <button id="numb4" class="calculatorBtn">4</button>
                 <button id="num5" class="calculatorBtn">5</button>
                 <button id="num6" class="calculatorBtn">6</button>
-                <button id="subtractBtn" class="calculatorBtn">-</button>
-            </section>
-            <section>
+                <button id="multiplyBtn" class="calculatorBtn operatorBtn">*</button>
+                <br>
                 <button id="numb1" class="calculatorBtn">1</button>
                 <button id="num2" class="calculatorBtn">2</button>
                 <button id="num3" class="calculatorBtn">3</button>
-                <button id="multiplyBtn" class="calculatorBtn">*</button>
-            </section>
-            <section>
-                <button id="numb0" class="calculatorBtn">0</button>
+                <button id="subtractBtn" class="calculatorBtn operatorBtn">-</button>
+                <br>
                 <button id="dotBtn" class="calculatorBtn">.</button>
-                <button id="equalBtn">=</button>
-                <button id="divideBtn" class="calculatorBtn">/</button>
+                <button id="numb0" class="calculatorBtn">0</button>
+                <button id="equalBtn">=</button>    
+                <button id="addBtn" class="calculatorBtn operatorBtn">+</button>
             </section>
         </section>
         <section>
