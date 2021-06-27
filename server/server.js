@@ -21,7 +21,7 @@ app.listen(port, () => {
 
 // ********* Server requests **************
 
-let lastResult = "";
+let lastResult = "0";
 let allOperations = [];
 
 app.post('/calculate', (req, res) => {

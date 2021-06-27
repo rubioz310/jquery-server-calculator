@@ -3,9 +3,9 @@ $(handleReady)
 function handleReady(){
     console.log("Jquery Linked");
     $('#equalBtn').on('click', operationData);
-    // $('.operator').on('click', saveOperator);
     $('.calculatorBtn').on('click', addToInput)
     $('#clearBtn').on('click', clearFields);
+    getResults();
     getHistory();
 
     //This prevents typing letters and other special characters besides + - * / .  on the main input
@@ -81,8 +81,7 @@ function showResults(results){
 }
 //Clears input fields
 function clearFields(){
-    $('#firstNum').val('');
-    $('#secondNum').val('');
+    $('#operationInput').val('');
     showResults(0);
 }
 //Gets a history of all previous operations
