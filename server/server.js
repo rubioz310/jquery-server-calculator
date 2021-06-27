@@ -36,7 +36,9 @@ app.post('/calculate', (req, res) => {
     }
     //Calculate results and store operation and results in a global array for future use
     let results = calculate(opArray);
-    allOperations.push({
+
+    //.unshift is used so the most recent operation will show on top of the history
+    allOperations.unshift({
         operation: opArray,
         result: results
     });
@@ -48,7 +50,6 @@ app.post('/calculate', (req, res) => {
 app.get('/results', (req, res) =>{
     res.send(lastResult);
 })
-
 app.get('/history', (req, res) =>{
     res.send(allOperations);
 })

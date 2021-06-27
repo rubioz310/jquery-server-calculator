@@ -6,7 +6,7 @@ function handleReady(){
     // $('.operator').on('click', saveOperator);
     $('.calculatorBtn').on('click', addToInput)
     $('#clearBtn').on('click', clearFields);
-    // getHistory();
+    getHistory();
 
     //This prevents typing letters and other special characters besides + - * / .  on the main input
     $('#operationInput').on('keypress', function (event) {
@@ -46,7 +46,7 @@ function operationData(){
         console.log('Fix input please');
     }
     getResults();
-    // getHistory();
+    getHistory();
 }
 function postOperation(operation){
     $.ajax({
@@ -92,18 +92,25 @@ function getHistory(){
         url: '/history'
     })
     .then(function (response) {
-        showHistory(response)
+        showHistory(response);
     })
     .catch(function (response){
         console.log('Sorry something went wrong.', response);
     });
 }
-//Shows all previous operation on DOM
+//Shows all previous operation on DOM with the most recent one on top
 function showHistory(operationsHistory){
     $('#operationsHistorySection').empty();
     for (const operation of operationsHistory) {
-        $('#operationsHistorySection').append(`
-            <li>${operation.firstNum} ${operation.operator} ${operation.secondNum} = ${operation.results}</li>
-        `)
+        let appendStr = "<li>";
+        for (const key in operation) {
+            if(key=="operation"){
+                for (const element of operation[key]) {
+                    appendStr+=`${element} `;
+                }
+            }
+        }
+        appendStr+=`= ${operation.result}</li>`;
+        $('#operationsHistorySection').append(appendStr);
     }
 }
