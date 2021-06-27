@@ -4,7 +4,7 @@ const express = require('express');
 //Create an instance of express by calling the function
 // returned above - give and object
 const app = express();
-const port = 5000; // Need for the server config
+const port = process.env.PORT; // Need for the server config
 
 // express static file serving - public is the folder name:
 app.use(express.static('server/public'));
@@ -25,9 +25,7 @@ app.listen(port, () => {
 
 let lastResult = "0";
 let allOperations = [];
-app.get('/', (req, res)=>{
-    res.render('public/index.html');
-})
+
 app.post('/calculate', (req, res) => {
     let operation = req.body;
     //This gets a string an splits it to an array of numbers and operators in the same order as the string
