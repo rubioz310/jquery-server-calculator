@@ -8,7 +8,7 @@ function handleReady(){
     $('#clearHistoryBtn').on('click', clearHistory);
     $('#operationsHistorySection').on('click', 'li', rerunCalculation);
     getResults();
-    getHistory();
+    clearFields();
 
     //This prevents typing letters and other special characters besides + - * / .  on the main input
     $('#operationInput').on('keypress', function (event) {
@@ -23,6 +23,7 @@ function handleReady(){
 
 //When clicking on the calculator buttons it will show it's value on the input field
 function addToInput(){
+    //This replace the initial 0 with the new numbers
     if($('#operationInput').val()==0){
         $('#operationInput').val('')
     }
@@ -50,8 +51,6 @@ function operationData(){
     }else{
         console.log('Fix input please');
     }
-    getResults();
-    getHistory();
 }
 //Sends operation to server
 function postOperation(operation){
@@ -62,7 +61,7 @@ function postOperation(operation){
         dataType: 'text'
     })
     .then(function (response) {
-        
+        getResults();
     })
     .catch(function (response){
         console.log('Sorry something went wrong.', response);
@@ -84,11 +83,7 @@ function getResults(){
 //Show results of last operation on DOM
 function showResults(results){
     $('#resultsSection').empty().append(results);
-}
-//Clears input fields
-function clearFields(){
-    $('#operationInput').val('0');
-    showResults(0);
+    getHistory();
 }
 //Gets a history of all previous operations
 function getHistory(){
@@ -103,12 +98,11 @@ function getHistory(){
         console.log('Sorry something went wrong.', response);
     });
 }
-//Shows all previous operation on DOM with the most recent one on top
+//Shows all operations history on DOM with the most recent one on top
 function showHistory(operationsHistory){
     $('#operationsHistorySection').empty();
     for (const operation of operationsHistory) {
         let appendStr = `<li>`;
-        
         for (const key in operation) {
             if(key=="operation"){
                 for (const element of operation[key]) {
@@ -121,23 +115,28 @@ function showHistory(operationsHistory){
     }
 }
 
+//Clicking on a operation from history reruns the calculation
+function rerunCalculation(){
+    let calculation = $(this).text();
+    $('#operationInput').val(calculation.replace(/\s/g,''));
+    postOperation(calculation);
+}
+//Clear all operations history and input field
 function clearHistory(){
     $.ajax({
         type: 'delete',
         url: '/history'
     })
     .then(function (response) {
-        showHistory(response);
+        getResults();
         clearFields();
     })
     .catch(function (response){
         console.log('Sorry something went wrong.', response);
     });
 }
-function rerunCalculation(){
-    let calculation = $(this).text();
-    $('#operationInput').val(calculation.replace(/\s/g,''));
-    postOperation(calculation);
-    getResults();
-    getHistory();
+//Clears input fields
+function clearFields(){
+    $('#operationInput').val('0');
+    showResults(0);
 }

@@ -38,12 +38,15 @@ app.post('/calculate', (req, res) => {
     }
     //Calculate results and store operation and results in a global array for future use
     let results = calculate(opArray);
+    if(allOperations.length=5){
+        allOperations.pop();
+    }
     allOperations.unshift({//.unshift is used so the most recent operation will show on top of the history
         operation: opArray,
         result: results
     });
     lastResult = results + "";
-    res.status(201);
+    res.send('Operation done');
 })
 
 app.get('/results', (req, res) =>{
@@ -54,13 +57,12 @@ app.get('/history', (req, res) =>{
 })
 app.delete('/history', (req, res) =>{
     allOperations=[];
-    lastResult=0;
-    res.send(allOperations);
+    lastResult='0';
+    res.send('History deleted');
 })
 
 //Function that calculates results with order of precedence of operators
 function calculate(calc) {
-    // --- Perform a calculation expressed as an array of operators and numbers
     let ops = [{'*': (a, b) => a * b, '/': (a, b) => a / b},
     {'+': (a, b) => a + b, '-': (a, b) => a - b}]
     let newCalc = [];
