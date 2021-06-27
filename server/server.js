@@ -25,7 +25,9 @@ app.listen(port, () => {
 
 let lastResult = "0";
 let allOperations = [];
-
+app.get('/', (req, res)=>{
+    res.render('public/index.html');
+})
 app.post('/calculate', (req, res) => {
     let operation = req.body;
     //This gets a string an splits it to an array of numbers and operators in the same order as the string
