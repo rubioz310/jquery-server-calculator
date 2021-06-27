@@ -11,7 +11,7 @@
     <title>Jquery Server Calculator</title>
 </head>
 <body>
-    <head>Jquery Calculator</head>
+    <header>Jquery Server Calculator</header>
     <main>
         <section id="calculator">
             <section>
@@ -22,35 +22,36 @@
                 <button id="numb7" class="calculatorBtn">7</button>
                 <button id="num8" class="calculatorBtn">8</button>
                 <button id="num9" class="calculatorBtn">9</button>
-                <button id="divideBtn" class="calculatorBtn operatorBtn">/</button>
+                <button id="divideBtn" class="operatorBtn">/</button>
                 <br>
                 <button id="numb4" class="calculatorBtn">4</button>
                 <button id="num5" class="calculatorBtn">5</button>
                 <button id="num6" class="calculatorBtn">6</button>
-                <button id="multiplyBtn" class="calculatorBtn operatorBtn">*</button>
+                <button id="multiplyBtn" class="operatorBtn">*</button>
                 <br>
                 <button id="numb1" class="calculatorBtn">1</button>
                 <button id="num2" class="calculatorBtn">2</button>
                 <button id="num3" class="calculatorBtn">3</button>
-                <button id="subtractBtn" class="calculatorBtn operatorBtn">-</button>
+                <button id="subtractBtn" class="operatorBtn">-</button>
                 <br>
                 <button id="dotBtn" class="calculatorBtn">.</button>
                 <button id="numb0" class="calculatorBtn">0</button>
                 <button id="equalBtn">=</button>    
-                <button id="addBtn" class="calculatorBtn operatorBtn">+</button>
+                <button id="addBtn" class="operatorBtn">+</button>
             </section>
         </section>
-        <section>
-            <h2 id="resultsSection">0</h2>
+        <section class='textElements'>
+            <section class='results'>
+                <h2 id="resultsSection">0</h2>
+            </section>
+            <section class=history>
+                <ul id="operationsHistorySection">
+                </ul>
+            </section>
         </section>
-        <section>
-            <ul id="operationsHistorySection">
 
-            </ul>
-        </section>
-        <section>
-            <button id="clearHistoryBtn">Clear History</button>
-        </section>
+        <button id="clearHistoryBtn">Clear History</button>
+        
         
     </main>
     <footer></footer>

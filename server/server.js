@@ -12,11 +12,13 @@ app.use(express.static('server/public'));
 //let's you use json
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+//Setup icon
+app.use('/favicon.ico', express.static('public/images/favicon.ico'));
 //start up server
 app.listen(port, () => {
     console.log('listening on port', port);
 });
+
 // ^^^^^^^^^ Server setup ^^^^^^^^^^^^^^^^^^^^^^
 
 // ********* Server requests **************
@@ -36,9 +38,7 @@ app.post('/calculate', (req, res) => {
     }
     //Calculate results and store operation and results in a global array for future use
     let results = calculate(opArray);
-
-    //.unshift is used so the most recent operation will show on top of the history
-    allOperations.unshift({
+    allOperations.unshift({//.unshift is used so the most recent operation will show on top of the history
         operation: opArray,
         result: results
     });
@@ -85,6 +85,6 @@ function calculate(calc) {
         console.log('Error: unable to resolve calculation');
         return calc;
     } else {
-        return calc[0];
+        return calc[0].toFixed(2);
     }
 }

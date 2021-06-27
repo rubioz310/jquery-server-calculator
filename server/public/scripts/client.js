@@ -1,9 +1,9 @@
 $(handleReady)
 
 function handleReady(){
-    console.log("Jquery Linked");
     $('#equalBtn').on('click', operationData);
     $('.calculatorBtn').on('click', addToInput);
+    $('.operatorBtn').on('click', addToInput);
     $('#clearBtn').on('click', clearFields);
     $('#clearHistoryBtn').on('click', clearHistory);
     $('#operationsHistorySection').on('click', 'li', rerunCalculation);
@@ -23,9 +23,13 @@ function handleReady(){
 
 //When clicking on the calculator buttons it will show it's value on the input field
 function addToInput(){
+    if($('#operationInput').val()==0){
+        $('#operationInput').val('')
+    }
     $('#operationInput').val($('#operationInput').val() + $(this).text());
 }
 
+//Check if the input is a valid operation and send it to server if it is
 function operationData(){
     let goodOperation = false;
     let operation = $('#operationInput').val();
@@ -41,7 +45,6 @@ function operationData(){
         }
     }
     if(goodOperation){
-        console.log('Sending calculation', operation);
         postOperation(operation);
 
     }else{
@@ -50,6 +53,7 @@ function operationData(){
     getResults();
     getHistory();
 }
+//Sends operation to server
 function postOperation(operation){
     $.ajax({
         type: 'POST',
@@ -83,7 +87,7 @@ function showResults(results){
 }
 //Clears input fields
 function clearFields(){
-    $('#operationInput').val('');
+    $('#operationInput').val('0');
     showResults(0);
 }
 //Gets a history of all previous operations
