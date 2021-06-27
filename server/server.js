@@ -26,27 +26,22 @@ let allOperations = [];
 
 app.post('/calculate', (req, res) => {
     let operation = req.body;
-    // const numbers = operation.operation.match(/\d+(\.\d+)?/g).map(v => parseFloat(v));
-    // const op = operation.operation.split(/(\+|-|\*|\/)+/g);
-    console.log(numbers, op);
-    let results = 0;
-    // switch (operation.operator) {
-    //     case "+":
-    //         results = parseInt(operation.firstNum) + parseInt(operation.secondNum);
-    //         break;
-    //     case "-":
-    //         results = operation.firstNum - operation.secondNum;
-    //         break;
-    //     case "*":
-    //         results = operation.firstNum * operation.secondNum;
-    //         break;
-    //     case "/":
-    //         results = operation.firstNum / operation.secondNum;
-    //         break;
-    // }
-    // operation.results = results;
-    // allOperations.push(operation);
-    // lastResult = results + "";
+    //This gets a string an splits it to an array of numbers and operators in the same order as the string
+    const opArray = operation.operation.split(/(\+|-|\*|\/)+/g);
+    //Convert string numbers to float type
+    for (const op in opArray) {
+        if(parseFloat(opArray[op])){
+            opArray[op]=parseFloat(opArray[op]);
+        }
+    }
+    //Calculate results and store operation and results in a global array for future use
+    let results = calculate(opArray);
+    allOperations.push({
+        operation: opArray,
+        result: results
+    });
+    console.log(allOperations);
+    lastResult = results + "";
     res.status(201);
 })
 
@@ -57,3 +52,34 @@ app.get('/results', (req, res) =>{
 app.get('/history', (req, res) =>{
     res.send(allOperations);
 })
+
+//Function that calculates results with order of precedence of operators
+function calculate(calc) {
+    // --- Perform a calculation expressed as an array of operators and numbers
+    let ops = [{'*': (a, b) => a * b, '/': (a, b) => a / b},
+    {'+': (a, b) => a + b, '-': (a, b) => a - b}]
+    let newCalc = [];
+    let currentOp;
+
+    for (let i = 0; i < ops.length; i++) {
+        for (let j = 0; j < calc.length; j++) {
+            if (ops[i][calc[j]]) {
+                currentOp = ops[i][calc[j]];
+            } else if (currentOp) {
+                newCalc[newCalc.length - 1] = 
+                    currentOp(newCalc[newCalc.length - 1], calc[j]);
+                currentOp = null;
+            } else {
+                newCalc.push(calc[j]);
+            }
+        }
+        calc = newCalc;
+        newCalc = [];
+    }
+    if (calc.length > 1) {
+        console.log('Error: unable to resolve calculation');
+        return calc;
+    } else {
+        return calc[0];
+    }
+}

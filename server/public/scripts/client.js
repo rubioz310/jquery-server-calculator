@@ -39,12 +39,13 @@ function operationData(){
         }
     }
     if(goodOperation){
-        console.log('Sending calculation', operation, numbers, operators);
-        
+        console.log('Sending calculation', operation);
+        postOperation(operation);
+
     }else{
         console.log('Fix input please');
     }
-    // postOperation(operation);
+    // 
     // getResults();
     // getHistory();
 }
