@@ -60,6 +60,10 @@ app.delete('/history', (req, res) =>{
     lastResult='0';
     res.send('History deleted');
 })
+app.delete('/results', (req, res) =>{
+    lastResult='0';
+    res.send('Results deleted');
+})
 
 //Function that calculates results with order of precedence of operators
 function calculate(calc) {

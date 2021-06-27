@@ -136,7 +136,17 @@ function clearHistory(){
     });
 }
 //Clears input fields
+
 function clearFields(){
-    $('#operationInput').val('0');
-    showResults(0);
+    $.ajax({
+        type: 'delete',
+        url: '/results'
+    })
+    .then(function (response) {
+        $('#operationInput').val('0');
+        getResults();
+    })
+    .catch(function (response){
+        console.log('Sorry something went wrong.', response);
+    });
 }
